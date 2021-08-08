@@ -181,17 +181,3 @@ class NeDB{
 module.exports = {NeDB:NeDB};
 
  
-/*
-(async ()=>{
-	//try to save db on S3
-	var s3 = require("../aws/s3").instance("AKIAITNQVHVOOKXBTO2A","H/R74z/qwWgOPgJ6Jo1ViM1Q6ZbPTtpNczb5bXgl","basepaws-archive");
-
-	var db = NeDB.instance({ filename: path.resolve(__dirname,'test.nedb'), autoload: true });
-	db.setBackupOnS3(s3);
-	//db.insert({ciao:"ciao"})
-	//await db.copyToS3()
-	await db.copyFromS3()
-	
-
-})()
-*/

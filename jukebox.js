@@ -13,6 +13,14 @@ class Music extends Document{
             file:this.file
         }
     }
+    toJSON(){
+        return {
+            uuid: this.uuid,
+            title:this.title,
+            videoId:this.videoId,
+            file:this.file
+        }
+    }
 }
 
 class JukeBox{
@@ -96,8 +104,8 @@ class JukeBox{
         }) ;
     }
     async test(){
-        console.log(await this.search("manifesto futurista della nuova umanita"))
-        console.log(await this.search("camera a sud vinicio capossela"))
+        //console.log(await this.search("manifesto futurista della nuova umanita"))
+        //console.log(await this.search("camera a sud vinicio capossela"))
     }
 }
 module.exports=JukeBox
