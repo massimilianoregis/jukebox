@@ -4,6 +4,7 @@ const {Document} = require("./util/persistence")
 const yt = require('youtube-search-without-api-key');
 const services = require("./util/services");
 const generateZipForPath= require("./lib/generateZipForPath")
+const archiver = require('archiver');
 
 class Music extends Document{    
     toJSONDB(){
@@ -110,8 +111,12 @@ class JukeBox{
             return (parseInt(prev.views) > parseInt(current.views)) ? prev : current
         }) ;
     }
-    async zip(){
-        return await generateZipForPath("mp3");         
+    async zip(response){
+        const archive = archiver('zip', {zlib: { level: 9 }});
+        archive.on('end', () => response.end());
+        archive.directory('mp3');
+        archive.pipe(response)
+        archive.finalize();
     }
     async test(){
         //console.log(await this.search("manifesto futurista della nuova umanita"))

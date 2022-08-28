@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "archiver": "^5.3.1",
     "express": "^4.17.1",
     "fs": "*",
     "jszip": "^3.10.1",

@@ -30,8 +30,8 @@ app.get("/add/:code",async (req,res,next)=>{
 })
 
 app.get("/download",async (req,res,next)=>{
-    var zip = await box.zip()
-    res.download(zip)
+   box.zip(res)
+    
 })
 app.use("/:id",async (req,res,next)=>{
     req.obj=await box.getMusic(req.params.id);
