@@ -8,6 +8,7 @@ const generateZipForPath= require("./lib/generateZipForPath")
 class Music extends Document{    
     toJSONDB(){
         return {
+            id: this.id,
             title:this.title,
             videoId:this.videoId,
             file:this.file
@@ -15,7 +16,7 @@ class Music extends Document{
     }
     toJSON(){
         return {
-            uuid: this.uuid,
+            id: this.id,
             title:this.title,
             videoId:this.videoId,
             file:this.file
@@ -30,7 +31,7 @@ class JukeBox{
         
     }
     async getMusic(id){
-        var music = await Music.get({videoId:id});
+        var music = await Music.get({id:id});
         if(!music) return;
         music.absFile=path.resolve(__dirname,"mp3",music.file)
         return music;    
@@ -115,6 +116,13 @@ class JukeBox{
     async test(){
         //console.log(await this.search("manifesto futurista della nuova umanita"))
         //console.log(await this.search("camera a sud vinicio capossela"))
+    }
+
+    async recoverDB(){
+        var list = fs.readdirSync("mp3");
+        for(var i in list){
+            Music.new({file:list[i],title:list[i]})
+        }
     }
 }
 module.exports=JukeBox

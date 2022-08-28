@@ -5,10 +5,19 @@ services.gateway="http://167.172.198.47:3000"
 
 
 app.get("/",async (req,res,next)=>{
+    var list = (await box.list())
+        .map(item=>({
+            title:item.title,
+            download:`http://${req.get("host")}/${item.id}/download`
+        }))
     res.json({
         download:`http://${req.get("host")}/download`,
-        music:await box.list()
+        recoverDB:`http://${req.get("host")}/recoverDB`,
+        music:list
     })
+})
+app.get("/recoverDB",async (req,res,next)=>{
+    res.json(await box.recoverDB());
 })
 app.get("/search",async (req,res,next)=>{
     var {title}= req.query;    
