@@ -1,9 +1,9 @@
 var path = require("path");
 var fs = require("fs");
-const NodeID3 = require('node-id3')
 const {Document} = require("./util/persistence")
 const yt = require('youtube-search-without-api-key');
 const services = require("./util/services");
+const generateZipForPath= require("./lib/generateZipForPath")
 
 class Music extends Document{    
     toJSONDB(){
@@ -29,6 +29,12 @@ class JukeBox{
         Music.config("db")
         
     }
+    async getMusic(id){
+        var music = await Music.get({videoId:id});
+        if(!music) return;
+        music.absFile=path.resolve(__dirname,"mp3",music.file)
+        return music;    
+    }
     async downloadList(array){
         for(var i in array)
             await this.download(array[i]);
@@ -39,7 +45,7 @@ class JukeBox{
             await this.downloadByCode(name)
         else      
             await this.downloadByName(name)        
-    }
+    }    
     async downloadByName(name){            
         var file = await this.search(name);                    
         await this.downloadByCode(file.videoId)
@@ -102,6 +108,9 @@ class JukeBox{
         return list.reduce((prev, current)=>{
             return (parseInt(prev.views) > parseInt(current.views)) ? prev : current
         }) ;
+    }
+    async zip(){
+        return await generateZipForPath("mp3");         
     }
     async test(){
         //console.log(await this.search("manifesto futurista della nuova umanita"))

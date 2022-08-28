@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "fs": "*",
+    "jszip": "^3.10.1",
     "moment-timezone": "^0.5.33",
     "nedb": "^1.8.0",
     "node-id3": "^0.2.3",
