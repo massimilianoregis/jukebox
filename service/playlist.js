@@ -7,6 +7,7 @@ var app = require("express")();
                 name:playlist.name,                
                 items:playlist.music?.length,
                 detail:req.hateous(`${playlist.name}`),
+                playing:playlist.playing,
                 play:req.hateous(`${playlist.name}/play`)
             }))
         );

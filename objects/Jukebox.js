@@ -44,7 +44,7 @@ class JukeBox{
 
     async getPlaylists(){
         return (await Playlist.find()).map(
-            playlist=> playlist.play=playlist.name===this.playlist
+            playlist=> playlist.playing=playlist.name===this.playlist
             );
     }
     async getPlaylist(name){
