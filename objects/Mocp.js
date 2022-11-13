@@ -22,6 +22,17 @@ class Mocp {
         info = [...info.matchAll(/(?<name>.*?): (?<value>.*?)\n/g)].reduce((a, v) => ({ ...a, [v.groups.name]: v.groups.value }), {});
         return info;
     }
+    static async mute(actVolume){
+        await this.volume(actVolume,0)
+    }
+    static async volumeShade(volume,actVolume) {
+        for(var i=actVolume;i>volume;i-=10){
+            await this.volume(i);
+        }
+    }
+    static async volume(volume) {
+        await Cmd.exec(`mocp -v ${volume}`);
+    }
     static async play() {
         await Cmd.exec(`mocp -p`);
     }

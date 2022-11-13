@@ -1,6 +1,7 @@
 var path = require("path");
 var fs = require("fs");
 const { Mocp }  = require("./Mocp");
+const JukeBox = require("./jukebox");
 
 class Playlist {
     static config(dir, jukebox) {
@@ -37,11 +38,11 @@ class Playlist {
 
     }
 
-    async play() {
-        //Playlist.jukebox.player=new PlaylistPlayer(this);
-        //Playlist.jukebox.player.play();
+    async play() {        
+        await Mocp.volumeShade(0,JukeBox.volume);
         await Mocp.clear();
         await Mocp.append(this.music);
+        await Mocp.volume(JukeBox.volume);        
         await Mocp.play();
     }
 
