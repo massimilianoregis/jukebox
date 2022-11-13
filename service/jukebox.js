@@ -19,7 +19,7 @@ app.get("/next",(req,res)=>{
     res.redirect("/jukebox")
 })
 app.get("/",async (req,res)=>{    
-    var {title,id,status}=await req.jukebox.info();
+    var {title,id,status}=await req.jukebox.info()||{};
     res.json({        
         addPlaylist:req.hateous(`playlist/:name`),
         info:{
