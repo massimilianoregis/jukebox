@@ -115,7 +115,7 @@ class JukeBox{
         archive.finalize();
     }
 
-    async play(){return Mocp.play();}
+    async play(){return Mocp.continue();}
     async pause(){return Mocp.pause();}
 }
 module.exports=JukeBox
