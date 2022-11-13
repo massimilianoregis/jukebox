@@ -14,6 +14,10 @@ app.get("/play",(req,res)=>{
     req.jukebox.play();    
     res.redirect("/jukebox")
 })
+app.get("/next",(req,res)=>{    
+    req.jukebox.next();    
+    res.redirect("/jukebox")
+})
 app.get("/",async (req,res)=>{    
     var {title,id,status}=await req.jukebox.info();
     res.json({        

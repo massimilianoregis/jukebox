@@ -36,7 +36,7 @@ class Mocp {
     }
     static async append(musics) {
         Promise.all(
-            musics.map(item => Cmd.exec(`mocp -a ${item.absFile}`))
+            musics.map(item => Cmd.exec(`mocp -a '${item.absFile}'`))
         );
     }
     static async clear() {

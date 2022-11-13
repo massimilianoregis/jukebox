@@ -9,7 +9,8 @@ const { Mocp } = require("./Mocp");
 class JukeBox{
 
     async info(){        
-        var {File,State,Title} = await Mocp.info();      
+        var {File,State} = await Mocp.info();      
+        if(!File) return;
         var name = path.basename(File,path.extname(File));
         var music = await this.getMusic(name.hash())        
         if(!music) return;
@@ -117,5 +118,6 @@ class JukeBox{
 
     async play(){return Mocp.continue();}
     async pause(){return Mocp.pause();}
+    async next(){return Mocp.next();}
 }
 module.exports=JukeBox
