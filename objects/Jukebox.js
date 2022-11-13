@@ -12,7 +12,7 @@ class JukeBox{
         var {File,State,Title} = await Mocp.info();      
         console.log(Title,State,Title.hash())         
         var music = await this.getMusic({id:Title.hash()})
-            music.status=State=="PLAY"?"play":"pause";           
+        if(music) music.status=State=="PLAY"?"play":"pause";           
     }
 
     root;
