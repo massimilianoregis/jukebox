@@ -38,10 +38,10 @@ class Playlist {
     }
 
     async play() {        
-        await Mocp.volumeShade(0,this.jukeBox.volume);
+        await Mocp.volumeShade(0,this.jukebox.volume);
         await Mocp.clear();
         await Mocp.append(this.music);
-        await Mocp.volume(this.jukeBox.volume);        
+        await Mocp.volume(this.jukebox.volume);        
         await Mocp.play();
     }
 
