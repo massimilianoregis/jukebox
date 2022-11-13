@@ -19,7 +19,7 @@ app.get("/next",(req,res)=>{
     res.redirect("/jukebox")
 })
 app.get("/volume/:volume",(req,res)=>{    
-    req.jukebox.volume(req.params.volume);    
+    req.jukebox.volume=req.params.volume;   
     res.redirect("/jukebox")
 })
 app.get("/",async (req,res)=>{    
