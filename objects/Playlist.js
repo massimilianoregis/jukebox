@@ -40,7 +40,8 @@ class Playlist {
     async play() {
         //Playlist.jukebox.player=new PlaylistPlayer(this);
         //Playlist.jukebox.player.play();
-        Mocp.append(this.music);
+        await Mocp.clear();
+        await Mocp.append(this.music);
     }
 
     shuffle() {
@@ -51,8 +52,9 @@ class Playlist {
         }
         this.music = array;
     }
-    async load() {
+    async load() {        
         var file = path.resolve(Playlist.root, `${this.name}.json`);
+        
         try {
             var { name, music } = JSON.parse(fs.readFileSync(file).toString());
             this.name = name;

@@ -35,7 +35,8 @@ var app = require("express")();
             shuffle:req.hateous("shuffle"),
             ...req.obj, 
             music:req.obj.music.map((music,index)=>({
-                ...music,
+                id:music?.id,
+                title:music?.title,
                 remove:req.hateous(`remove/${index}`),
             })),
             addMusic:(await req.jukebox.getMusic()).map(item=>({
