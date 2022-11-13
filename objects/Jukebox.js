@@ -10,9 +10,9 @@ class JukeBox{
 
     async info(){        
         var {File,State,Title} = await Mocp.info();      
-        console.log(File,State,File.hash())  
         var name = path.basename(File,path.extname(File));
         var music = await this.getMusic({id:name.hash()})
+        console.log(File,State,name.hash())  
         if(music) music.status=State=="PLAY"?"play":"pause";           
     }
 
