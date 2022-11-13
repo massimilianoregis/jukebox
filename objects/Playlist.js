@@ -42,6 +42,7 @@ class Playlist {
         //Playlist.jukebox.player.play();
         await Mocp.clear();
         await Mocp.append(this.music);
+        await Mocp.play();
     }
 
     shuffle() {
