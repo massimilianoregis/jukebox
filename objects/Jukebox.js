@@ -7,7 +7,7 @@ const { Playlist } = require("./Playlist");
 const { Mocp } = require("./Mocp");
 
 class JukeBox{
-    volume=100;
+    _volume=100;
     async info(){        
         var {File,State,Artist} = await Mocp.info();      
         if(!File) return;
@@ -17,6 +17,13 @@ class JukeBox{
         music.artist=Artist
         music.status=State=="PLAY"?"play":"pause";           
         return music;
+    }
+    set volume(value){
+        Mocp.volume(value)
+        this._volume=value
+    }
+    get volume(){
+        return this._volume
     }
 
     root;
