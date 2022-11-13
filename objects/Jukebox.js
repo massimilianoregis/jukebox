@@ -43,13 +43,15 @@ class JukeBox{
     }    
 
     async getPlaylists(){
-        return await Playlist.find();
+        return (await Playlist.find()).map(
+            playlist=> playlist.play=playlist.name===this.playlist
+            );
     }
     async getPlaylist(name){
         var list = await Playlist.get({name:name})
         if(!list) list = Playlist.new({name:name});
         return list;
-    }
+    }    
     
     
     async downloadList(array){
@@ -125,7 +127,11 @@ class JukeBox{
     }
 
     async play(){return Mocp.continue();}
-    async pause(){return Mocp.pause();}
+    async pause(){
+        await Mocp.volumeShade(0,Playlist.jukebox.volume);
+        await Mocp.pause();
+        await Mocp.volume(this.volume);
+    }
     async next(){return Mocp.next();}
 }
 module.exports=JukeBox
