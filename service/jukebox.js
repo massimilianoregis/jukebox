@@ -6,10 +6,25 @@ app.use((req,res,next)=>{
     req.jukebox=box;    
     next();
 })
+app.get("/pause",(req,res)=>{
+    req.jukebox.pause();
+    res.redirect("/jukebox")
+})
+app.get("/play",(req,res)=>{
+    req.jukebox.play();
+    res.redirect("/jukebox")
+})
 app.get("/",async (req,res)=>{    
+    var {title,id,status}=await req.jukebox.info();
     res.json({        
         addPlaylist:req.hateous(`playlist/:name`),
-        info:await req.jukebox.info(),
+        info:{
+            id:id,
+            title:title,
+            status:status,
+            pause:status=="play"?req.hateous(`/jukebox/pause`):undefined,
+            play:status=="pause"?req.hateous(`/jukebox/play`):undefined,
+        },
         music:await req.services.get('/jukebox/music'),
         playlist:await req.services.get('/jukebox/playlist')
     })    

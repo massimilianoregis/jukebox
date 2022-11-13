@@ -11,9 +11,10 @@ class JukeBox{
     async info(){        
         var {File,State,Title} = await Mocp.info();      
         var name = path.basename(File,path.extname(File));
-        var music = await this.getMusic({id:name.hash()})
-        console.log(File,State,name.hash())  
-        if(music) music.status=State=="PLAY"?"play":"pause";           
+        var music = await this.getMusic(name.hash())        
+        if(!music) return;
+        music.status=State=="PLAY"?"play":"pause";           
+        return music;
     }
 
     root;
@@ -114,5 +115,7 @@ class JukeBox{
         archive.finalize();
     }
 
+    async play(){return Mocp.play();}
+    async pause(){return Mocp.pause();}
 }
 module.exports=JukeBox
