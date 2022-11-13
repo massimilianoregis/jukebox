@@ -9,11 +9,12 @@ const { Mocp } = require("./Mocp");
 class JukeBox{
     volume=100;
     async info(){        
-        var {File,State} = await Mocp.info();      
+        var {File,State,Artist} = await Mocp.info();      
         if(!File) return;
         var name = path.basename(File,path.extname(File));
         var music = await this.getMusic(name.hash())        
         if(!music) return;
+        music.artist=Artist
         music.status=State=="PLAY"?"play":"pause";           
         return music;
     }

@@ -12,12 +12,13 @@
     "archiver": "^5.3.1",
     "axios": "^1.1.3",
     "express": "^4.17.1",
+    "express-http-proxy": "^1.6.3",
     "fs": "*",
     "jszip": "^3.10.1",
     "moment-timezone": "^0.5.33",
     "nedb": "^1.8.0",
     "node-id3": "^0.2.3",
-    "node-schedule": "^2.0.0",    
+    "node-schedule": "^2.0.0",
     "youtube-mp3-downloader": "^0.7.7",
     "youtube-search-without-api-key": "^1.0.6"
   }

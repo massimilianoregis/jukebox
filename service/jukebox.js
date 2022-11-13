@@ -18,14 +18,19 @@ app.get("/next",(req,res)=>{
     req.jukebox.next();    
     res.redirect("/jukebox")
 })
+app.get("/volume/:volume",(req,res)=>{    
+    req.jukebox.volume(req.params.volume);    
+    res.redirect("/jukebox")
+})
 app.get("/",async (req,res)=>{    
-    var {title,id,status}=await req.jukebox.info()||{};
+    var {title,id,status,artist}=await req.jukebox.info()||{};
     res.json({        
         addPlaylist:req.hateous(`playlist/:name`),
         info:{
             id:id,
             title:title,
             status:status,
+            artist:artist,
             pause:status=="play"?req.hateous(`/jukebox/pause`):undefined,
             play:status=="pause"?req.hateous(`/jukebox/play`):undefined,
         },
