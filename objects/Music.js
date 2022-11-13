@@ -18,7 +18,7 @@ class Music {
         this.file = file;
     }
     get id(){
-        return this.title().hash();        
+        return this.title.hash();        
     }
     get absFile(){
         return path.resolve(Music.root, this.file);
