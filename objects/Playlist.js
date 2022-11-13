@@ -39,6 +39,7 @@ class Playlist {
 
     async play() {        
         await Mocp.volumeShade(0,Playlist.jukebox.volume);
+        await Mocp.pause();
         await Mocp.clear();
         await Mocp.append(this.music);
         await Mocp.volume(Playlist.jukebox.volume);        
