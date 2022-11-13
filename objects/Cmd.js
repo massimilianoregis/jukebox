@@ -5,8 +5,7 @@ class Cmd {
         console.log(cmd)
         return new Promise((ok, ko) => {
             exec(cmd, (error, stdout, stderr) => {
-                if(error) console.log(error)
-                if(error) ko(error);
+                if(error) console.log(error)                
                 ok(stdout);
             });
         });
