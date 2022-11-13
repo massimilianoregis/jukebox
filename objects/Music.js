@@ -15,7 +15,7 @@ class Music {
     }
 
     constructor(file) {
-        this.id = file.hash();
+        this.id = title().hash();
         this.file = file;
         this.absFile = path.resolve(Music.root, this.file);
     }
