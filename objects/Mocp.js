@@ -1,9 +1,25 @@
 const { Cmd } = require("./Cmd");
-
+var example=`
+State: PAUSE
+File: /home/pi/jukebox/data/mp3/Colapesce, Dimartino - Musica leggerissima (Official Video - Sanremo 2021).mp3
+Title: Colapesce, Dimartino - Musica leggerissima (Official Video
+Artist: Colapesce, Dimartino
+SongTitle: Musica leggerissima (Official Video
+Album: 
+TotalTime: 03:43
+TimeLeft: 03:40
+TotalSec: 223
+CurrentTime: 00:03
+CurrentSec: 3
+Bitrate: 160kbps
+AvgBitrate: 160kbps
+Rate: 44kHz
+`
 class Mocp {
     static async info() {
         var info = await Cmd.exec(`mocp -i`);
-        info = [...stdout.matchAll(/(?<name>.*?): (?<value>.*?)\n/g)].reduce((a, v) => ({ ...a, [v.groups.name]: v.groups.value }), {});
+        info=example;
+        info = [...info.matchAll(/(?<name>.*?): (?<value>.*?)\n/g)].reduce((a, v) => ({ ...a, [v.groups.name]: v.groups.value }), {});
         return info;
     }
     static async play() {

@@ -9,7 +9,7 @@ app.use((req,res,next)=>{
 app.get("/",async (req,res)=>{    
     res.json({        
         addPlaylist:req.hateous(`playlist/:name`),
-        player:req.jukebox.player?.music,
+        info:await req.jukebox.info(),
         music:await req.services.get('/jukebox/music'),
         playlist:await req.services.get('/jukebox/playlist')
     })    

@@ -4,7 +4,7 @@ class Cmd {
     static async exec(cmd) {
         return new Promise((ok, ko) => {
             exec(cmd, (error, stdout, stderr) => {
-                ok(info);
+                ok(stdout);
             });
         });
     }
