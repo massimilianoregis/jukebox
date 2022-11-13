@@ -16,8 +16,12 @@ class Music {
 
     constructor(file) {
         this.file = file;
-        this.id = this.title().hash();        
-        this.absFile = path.resolve(Music.root, this.file);
+    }
+    get id(){
+        return this.title().hash();        
+    }
+    get absFile(){
+        return path.resolve(Music.root, this.file);
     }
     get title() {
         var ext = path.extname(this.file);
