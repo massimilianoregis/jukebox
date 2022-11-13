@@ -10,8 +10,8 @@ app.get("/pause",(req,res)=>{
     req.jukebox.pause();
     res.redirect("/jukebox")
 })
-app.get("/play",(req,res)=>{
-    req.jukebox.play();
+app.get("/play",(req,res)=>{    
+    req.jukebox.play();    
     res.redirect("/jukebox")
 })
 app.get("/",async (req,res)=>{    
