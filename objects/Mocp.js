@@ -36,7 +36,7 @@ class Mocp {
     }
     static async append(musics) {
         for(var i in musics)
-            Cmd.exec(`mocp -a '${musics[i].absFile}'`)        
+            await Cmd.exec(`mocp -a '${musics[i].absFile}'`)        
     }
     static async clear() {
         await Cmd.exec(`mocp -c`);
