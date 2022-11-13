@@ -1,48 +1,51 @@
 var path = require("path");
-var fs = require("fs");
-const {Document} = require("./util/persistence")
 const yt = require('youtube-search-without-api-key');
-const services = require("./util/services");
-const generateZipForPath= require("./lib/generateZipForPath")
 const archiver = require('archiver');
 
-class Music extends Document{    
-    toJSONDB(){
-        return {
-            id: this.id,
-            title:this.title,
-            videoId:this.videoId,
-            file:this.file
-        }
-    }
-    toJSON(){
-        return {
-            id: this.id,
-            title:this.title,
-            videoId:this.videoId,
-            file:this.file
-        }
-    }
-}
+const { Music } = require("./Music");
+const { Playlist } = require("./Playlist");
+const { Mocp } = require("./Mocp");
 
 class JukeBox{
-    constructor(){
-        this.test();
-        Music.config("db")
-        
+
+    async info(){        
+        var {File,State} = await Mocp.info();
+        var name = path.basename(File,path.extname(File));
+        var music = await this.getMusic({id:name.hash()})
+            music.status=State=="PLAY"?"play":"pause";           
+    }
+
+    root;
+    constructor(root,playlist){        
+        Music.config(path.resolve(process.cwd(),root))
+        Playlist.config(path.resolve(process.cwd(),playlist),this)
     }
     async getMusic(id){
+        if(id==null) return this.list();
         var music = await Music.get({id:id});
-        if(!music) return;
-        music.absFile=path.resolve(__dirname,"mp3",music.file)
+        if(!music) return;        
         return music;    
     }
+    
+    async list(){
+        return await Music.find();
+    }    
+
+    async getPlaylists(){
+        return await Playlist.find();
+    }
+    async getPlaylist(name){
+        var list = await Playlist.get({name:name})
+        if(!list) list = Playlist.new({name:name});
+        return list;
+    }
+    
+    
     async downloadList(array){
         for(var i in array)
             await this.download(array[i]);
     }
     async download(name){
-        console.log(name)
         if(name.match(/^[a-zA-Z0-9-_]{11}$/))
             await this.downloadByCode(name)
         else      
@@ -53,8 +56,6 @@ class JukeBox{
         await this.downloadByCode(file.videoId)
     }
     async downloadByCode(code){           
-        var file=await Music.get({videoId:code})        
-        if(file)  return;       
         return new Promise((ok,ko)=>{
             
             var YoutubeMp3Downloader = require("youtube-mp3-downloader");
@@ -71,10 +72,6 @@ class JukeBox{
             YD.download(code);
 
             YD.on("finished", function(err, data) {
-                Music.new({
-                    title:data.title, 
-                    videoId:data.videoId,
-                    file:`${data.videoTitle}.mp3`})
                 ok(data);
             });
 
@@ -89,10 +86,6 @@ class JukeBox{
           
         })
     }
-
-    async list(){
-        return await Music.find();
-    }
     async search(name){
         var list = await yt.search(name);
 
@@ -105,6 +98,7 @@ class JukeBox{
             download:services.link(`/add/${item.id.videoId}`)
         }));
     }
+    
     async findBestMatch(name){
         var list = this.search(name);
         return list.reduce((prev, current)=>{
@@ -118,16 +112,6 @@ class JukeBox{
         archive.pipe(response)
         archive.finalize();
     }
-    async test(){
-        //console.log(await this.search("manifesto futurista della nuova umanita"))
-        //console.log(await this.search("camera a sud vinicio capossela"))
-    }
 
-    async recoverDB(){
-        var list = fs.readdirSync("mp3");
-        for(var i in list){
-            Music.new({file:list[i],title:list[i]})
-        }
-    }
 }
 module.exports=JukeBox
