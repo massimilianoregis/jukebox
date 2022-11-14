@@ -26,7 +26,7 @@ app.get("/",async (req,res)=>{
     var {title,id,status,artist}=await req.jukebox.info()||{};
     res.json({        
         addPlaylist:req.hateous(`playlist/:name`),
-        volume:this.volume,
+        volume:req.jukebox.volume,
         info:{
             id:id,
             title:title,
