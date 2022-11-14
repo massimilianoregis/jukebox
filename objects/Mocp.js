@@ -52,5 +52,8 @@ class Mocp {
     static async clear() {
         await Cmd.exec(`mocp -c`);
     }
+    static async next() {
+        await Cmd.exec(`mocp -f`);
+    }
 }
 exports.Mocp = Mocp;
