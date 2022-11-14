@@ -25,8 +25,10 @@ class Mocp {
     static async mute(actVolume){
         await this.volume(actVolume,0)
     }
-    static async volumeShade(volume,actVolume) {
-        for(var i=actVolume;i>volume;i-=10){
+    static async volumeShade(volume,actVolume) {        
+        var step = 10;
+        if(actVolume<valume) step=-10
+        for(var i=actVolume;i>volume;i-=step){
             await this.volume(i);
         }
     }
