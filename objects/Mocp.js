@@ -26,6 +26,8 @@ class Mocp {
         await this.volume(actVolume,0)
     }
     static async volumeShade(volume,actVolume) {        
+        actVolume=parseInt(actVolume)
+        volume=parseInt(volume)
         var step = 10;
         if(actVolume>volume) step=-10
         for(var i=actVolume;i>volume;i+=step){
