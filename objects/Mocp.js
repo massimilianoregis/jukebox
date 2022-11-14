@@ -27,11 +27,11 @@ class Mocp {
     }
     static async volumeShade(volume,actVolume) {        
         console.log(actVolume,"-->",volume)
-        var step = 10;
-        if(actVolume>volume) step=-10
-        for(var i=actVolume;i>volume;i+=step){
-            await this.volume(i);
-        }
+        
+        do{
+            volume+=actVolume<volume?-1:1;
+            if(volume%10==0)  await this.volume(volume);
+        }while(volume!=actVolume)        
     }
     static async volume(volume) {
         await Cmd.exec(`mocp -v ${volume}`);
