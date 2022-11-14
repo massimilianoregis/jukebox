@@ -34,8 +34,8 @@ app.get("/",async (req,res)=>{
             pause:status=="play"?req.hateous(`/jukebox/pause`):undefined,
             play:status=="pause"?req.hateous(`/jukebox/play`):undefined,
         },
-        music:await req.services.get('/jukebox/music'),
-        playlist:await req.services.get('/jukebox/playlist')
+        playlist:await req.services.get('/jukebox/playlist'),
+        music:await req.services.get('/jukebox/music')  
     })    
 })
 

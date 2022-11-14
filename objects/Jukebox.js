@@ -19,7 +19,7 @@ class JukeBox{
         return music;
     }
     set volume(value){
-        Mocp.volume(value)
+        Mocp.volumeShade(value)
         this._volume=value
     }
     get volume(){
@@ -44,7 +44,7 @@ class JukeBox{
 
     async getPlaylists(){
         return (await Playlist.find()).map(
-            playlist=> playlist.playing=playlist.name===this.playlist
+            playlist=>({...playlist,playing:playlist.name===this.playlist?.name})
             );
     }
     async getPlaylist(name){

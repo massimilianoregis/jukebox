@@ -44,7 +44,7 @@ class Playlist {
         await Mocp.append(this.music);
         await Mocp.volume(Playlist.jukebox.volume);        
         await Mocp.play();
-        this.jukebox.playlist=this;
+        Playlist.jukebox.playlist=this;
     }
 
     shuffle() {

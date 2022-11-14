@@ -1,6 +1,6 @@
 var app = require("express")();
 
-    app.get("/",async (req,res)=>{
+    app.get("/",async (req,res)=>{       
         res.json(
             (await req.jukebox.getPlaylists())
             .map(playlist=>({
