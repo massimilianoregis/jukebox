@@ -19,6 +19,7 @@ class JukeBox{
         return music;
     }
     set volume(value){
+        value = parseInt(value);
         Mocp.volumeShade(value,this._volume)
         this._volume=value
     }
