@@ -29,9 +29,9 @@ class Mocp {
         console.log(actVolume,"-->",volume)
         
         do{
-            if(volume<actVolume) volume++;
-            else                 volume--;
-            if(volume%10==0)  await this.volume(volume);
+            if(volume<actVolume) actVolume--;
+            else                 actVolume++;
+            if(actVolume%10==0)  await this.volume(actVolume);
         }while(volume!=actVolume)        
         await this.volume(volume);
     }
