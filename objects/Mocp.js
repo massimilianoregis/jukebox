@@ -32,6 +32,7 @@ class Mocp {
             volume+=actVolume<volume?-1:1;
             if(volume%10==0)  await this.volume(volume);
         }while(volume!=actVolume)        
+        await this.volume(volume);
     }
     static async volume(volume) {
         await Cmd.exec(`mocp -v ${volume}`);
