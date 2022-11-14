@@ -7,3 +7,7 @@ https://github.com/jonsafari/mocp
 npm i
 # run
 node index
+
+#autostart in raspberry
+/etc/xdg/autostart/display.desktop
+.bashrc
