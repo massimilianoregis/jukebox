@@ -19,7 +19,7 @@ class JukeBox{
         return music;
     }
     set volume(value){
-        Mocp.volumeShade(value)
+        Mocp.volumeShade(value,this._volume)
         this._volume=value
     }
     get volume(){
