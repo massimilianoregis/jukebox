@@ -38,8 +38,11 @@ class Mocp {
     static async volume(volume) {
         await Cmd.exec(`mocp -v ${volume}`);
     }
-    static async play() {
-        await Cmd.exec(`mocp -p`);
+    static async play(musics=[]) {
+        for(var i in musics){
+            await Cmd.exec(`mocp -a '${musics[i].absFile}'`)        
+            if(i==0)    await Cmd.exec(`mocp -p`);
+        }
     }
     static async pause() {
         await Cmd.exec(`mocp -P`);

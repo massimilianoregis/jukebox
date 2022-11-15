@@ -2,6 +2,8 @@ var path = require("path");
 var fs = require("fs");
 const { Mocp }  = require("./Mocp");
 
+
+
 class Playlist {
     static config(dir, jukebox) {
         this.jukebox = jukebox;
@@ -14,30 +16,34 @@ class Playlist {
     }
     static async get({ name }) {
         try {
-            return new Playlist(name).load();
+            return (await this.find()).find(item=>item.name==name);
         } catch (e) {
             console.log(e);
             return null;
         }
     }
     static async find() {
-        try {
-            return Promise.all(
+        try {            
+            var list = await Promise.all(
                 fs.readdirSync(this.root).map((item) => new Playlist(item).load())
             );
+
+            list.unshift(await new AllPlaylist().load());
+            return list;
         }
-        catch (e) { return []; }
+        catch (e) {console.log(e); return []; }
     }
     async save() {
         fs.writeFileSync(path.resolve(Playlist.root, `${this.name}.json`), JSON.stringify(this.toJSON()));
     }
     constructor(name) {
-        this.name = path.basename(name, path.extname(name) || "");
+        if(name)    this.name = path.basename(name, path.extname(name) || "");
         this.music = [];
 
     }
 
     async play() {        
+        this.shuffle()
         await Mocp.volumeShade(0,Playlist.jukebox.volume);
         await Mocp.pause();
         await Mocp.clear();
@@ -82,3 +88,15 @@ class Playlist {
     }
 }
 exports.Playlist = Playlist;
+
+
+class AllPlaylist extends Playlist{
+    async load() {        
+        try {            
+            this.name = "All";
+            this.music = await Playlist.jukebox.list()            
+        } finally {
+            return this;
+        }
+    }
+}
