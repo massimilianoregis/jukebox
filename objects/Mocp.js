@@ -43,6 +43,7 @@ class Mocp {
             await Cmd.exec(`mocp -a '${musics[i].absFile}'`)        
             if(i==0)    await Cmd.exec(`mocp -p`);
         }
+        if(musics.length==0) await Cmd.exec(`mocp -p`);        
     }
     static async pause() {
         await Cmd.exec(`mocp -P`);

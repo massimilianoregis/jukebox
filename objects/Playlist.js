@@ -46,10 +46,9 @@ class Playlist {
         this.shuffle()
         await Mocp.volumeShade(0,Playlist.jukebox.volume);
         await Mocp.pause();
-        await Mocp.clear();
-        await Mocp.append(this.music);
+        await Mocp.clear();        
         await Mocp.volume(Playlist.jukebox.volume);        
-        await Mocp.play();
+        await Mocp.play(this.music);
         Playlist.jukebox.playlist=this;
     }
 
