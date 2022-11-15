@@ -36,7 +36,7 @@ class Mocp {
         await this.volume(volume);
     }
     static async volume(volume) {
-        await Cmd.exec(`mocp -v ${volume}`);
+        await Cmd.exec(`amixer cset numid=3 ${volume}%`);
     }
     static async play(musics=[]) {
         for(var i in musics){

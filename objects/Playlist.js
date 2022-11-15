@@ -44,7 +44,7 @@ class Playlist {
 
     async play() {        
         this.shuffle()
-        await Mocp.volumeShade(0,Playlist.jukebox.volume);
+        //await Mocp.volumeShade(0,Playlist.jukebox.volume);
         await Mocp.pause();
         await Mocp.clear();        
         await Mocp.volume(Playlist.jukebox.volume);        
