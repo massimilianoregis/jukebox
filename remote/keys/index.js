@@ -1,3 +1,5 @@
 module.exports.PlayOrPause=require("./PlayOrPause")
 module.exports.VolumeUp=require("./VolumeUp")
 module.exports.VolumeDown=require("./VolumeDown")
+module.exports.Mute=require("./Mute")
+module.exports.Next=require("./Next")
