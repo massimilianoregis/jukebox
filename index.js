@@ -9,7 +9,6 @@ try{
     Remote.services={
         get:async (value)=>(await services.get(`http://localhost:${port}/${value}`)).data
     }
-    console.log(Remote);
     new Remote('event2').default()
 }catch(e){console.log(e)}
 
