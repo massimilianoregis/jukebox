@@ -7,7 +7,10 @@ var port = 3002
 try{    
     const Remote= require('./remote/Remote');
     Remote.services={
-        get:async (value)=>(await services.get(`http://localhost:${port}/${value}`)).data
+        get:async (value)=>{
+            console.log(`http://localhost:${port}${value}`)
+            (await services.get(`http://localhost:${port}${value}`)).data
+        }
     }
     new Remote('event2').default()
 }catch(e){console.log(e)}
@@ -26,4 +29,5 @@ var app = express();
     app.get("/",(req,res)=>{
         res.redirect('/jukebox/music')
     })    
-app.listen(3002)
+console.log(`jukebox at port: ${port}`)
+app.listen(port)
