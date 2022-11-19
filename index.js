@@ -23,6 +23,7 @@ var app = express();
         req.services={
             get:async (value)=>(await services.get(req.hateous(value))).data
         }        
+        next();
     })
     app.use("/jukebox",require("./service/jukebox"))
     app.use("/",express.static("./ui/build"));
