@@ -8,8 +8,8 @@ var Remote
 try{    
     Remote= new (require('./remote/Remote'))('event2').default()
     Remote.services={
-        get:async (value)=>(await services.get(`http://localhost:${port}/${value}`).data
-    };
+        get:async (value)=>(await services.get(`http://localhost:${port}/${value}`)).data
+    }
 }catch(e){console.log(e)}
 
 

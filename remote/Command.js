@@ -1,3 +1,5 @@
+const Remote = require("./remote");
+
 class Command{
     keyId="";
     endpoint="";
@@ -6,7 +8,7 @@ class Command{
     }
     press(){
         console.log(this.constructor.name)
-        Command.services.get(this.endpoint)
+        Remote.services.get(this.endpoint)
     }
 }
 
