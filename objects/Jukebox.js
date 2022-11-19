@@ -17,7 +17,7 @@ class JukeBox{
         music.artist=Artist
         music.status=State=="PLAY"?"play":"pause";           
         return music;
-    }
+    }    
     set volume(value){
         value = parseInt(value);
         Mocp.volumeShade(value,this._volume)

@@ -7,9 +7,10 @@ var app = require("express")();
                 id:item.id,
                 title:item.title,
                 detail:req.hateous(`${item.id}`),
+                play:`http://${req.get("host")}/${item.id}/play`,
                 download:`http://${req.get("host")}/${item.id}/download`
             }))
-        res.json({
+        res.json({            
             download:`http://${req.get("host")}/download`,
             recoverDB:`http://${req.get("host")}/recoverDB`,
             music:list
@@ -19,8 +20,16 @@ var app = require("express")();
         var {id}= req.params;
         req.obj= await req.jukebox.getMusic(id);
         next();
-    })
+    })    
     app.get("/:id",async(req,res,next)=>{
+        res.json({
+            ...req.obj,
+            jukebox:req.hateous('/jukebox')
+        })
+    })
+    app.get("/:id/play",async(req,res,next)=>{
+        var {id}= req.params;
+        (await req.jukebox.getMusic(id)).play()
         res.json({
             ...req.obj,
             jukebox:req.hateous('/jukebox')

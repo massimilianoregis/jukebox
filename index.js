@@ -3,13 +3,20 @@ require("./util/hash")
 var path = require("path")
 const services = require("axios").create();
 var express = require("express");
+var Remote
+try{    
+    Remote= new require('./remote/remote')('event2').default()
+}catch(e){console.log(e)}
+
+
+
 var app = express();
     app.use((req,res,next)=>{
         req.hateous=(value)=>`http://${req.get('host')}${path.resolve(req.originalUrl,value)}`
         req.services={
             get:async (value)=>(await services.get(req.hateous(value))).data
         }
-        
+        Remote.services=req.services;
         next();
     })
     app.use("/jukebox",require("./service/jukebox"))
@@ -18,4 +25,3 @@ var app = express();
         res.redirect('/jukebox/music')
     })    
 app.listen(3002)
-console.log("start on port 3002")

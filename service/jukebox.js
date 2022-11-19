@@ -14,8 +14,23 @@ app.get("/play",(req,res)=>{
     req.jukebox.play();    
     res.redirect("/jukebox")
 })
+app.get("/playorpause",(req,res)=>{    
+    if(req.jukebox.info?.status=="play") 
+        req.jukebox.pause();    
+    else
+        req.jukebox.play();    
+    res.redirect("/jukebox")
+})
 app.get("/next",(req,res)=>{    
     req.jukebox.next();    
+    res.redirect("/jukebox")
+})
+app.get("/volume/up",(req,res)=>{    
+    req.jukebox.volume+=10;   
+    res.redirect("/jukebox")
+})
+app.get("/volume/down",(req,res)=>{    
+    req.jukebox.volume+=10;   
     res.redirect("/jukebox")
 })
 app.get("/volume/:volume",(req,res)=>{    
