@@ -4,12 +4,13 @@ var path = require("path")
 const services = require("axios").create();
 var express = require("express");
 var port = 3002
-var Remote
 try{    
-    Remote= new (require('./remote/Remote'))('event2').default()
+    const Remote= require('./remote/Remote');
     Remote.services={
         get:async (value)=>(await services.get(`http://localhost:${port}/${value}`)).data
     }
+    console.log(Remote);
+    new Remote('event2').default()
 }catch(e){console.log(e)}
 
 

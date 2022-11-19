@@ -5,7 +5,6 @@ const {PlayOrPause,VolumeUp,VolumeDown} = require('./keys');
 
 class Remote{
     constructor(name,services){
-        Command.services=services;
         this.keyboard = new ExclusiveKeyboard(name, true);
     }
     addKey(cmd){
