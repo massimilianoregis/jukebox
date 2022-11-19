@@ -45,6 +45,7 @@ app.get("/",async (req,res)=>{
             title:title,
             status:status,
             artist:artist,
+            volume:req.jukebox.volume,
             pause:status=="play"?req.hateous(`/jukebox/pause`):undefined,
             play:status=="pause"?req.hateous(`/jukebox/play`):undefined,
         },
