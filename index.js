@@ -8,7 +8,6 @@ try{
     const Remote= require('./remote/Remote');
     Remote.services={
         get:async (value)=>{
-            console.log(`http://localhost:${port}${value}`)
             (await services.get(`http://localhost:${port}${value}`)).data
         }
     }

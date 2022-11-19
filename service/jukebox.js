@@ -15,10 +15,8 @@ app.get("/play",(req,res)=>{
     res.redirect("/jukebox")
 })
 app.get("/playorpause",(req,res)=>{    
-    if(req.jukebox.info?.status=="play") 
-        req.jukebox.pause();    
-    else
-        req.jukebox.play();    
+    req.jukebox.playOrPause()
+       
     res.redirect("/jukebox")
 })
 app.get("/next",(req,res)=>{    

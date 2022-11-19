@@ -128,6 +128,7 @@ class JukeBox{
         archive.finalize();
     }
 
+    async playOrPause(){return Mocp.playOrPause();}
     async play(){return Mocp.continue();}
     async pause(){
         await Mocp.volumeShade(0,Playlist.jukebox.volume);

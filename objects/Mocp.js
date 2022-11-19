@@ -45,6 +45,9 @@ class Mocp {
         }
         if(musics.length==0) await Cmd.exec(`mocp -p`);        
     }
+    static async playOrPause() {
+        await Cmd.exec(`mocp -G`);
+    }
     static async pause() {
         await Cmd.exec(`mocp -P`);
     }
