@@ -1,6 +1,6 @@
 const ExclusiveKeyboard = require('exclusive-keyboard');
 const Command = require('./Command');
-const {PlayOrPause,VolumeUp,VolumeDown,Mute} = require('./keys');
+const {PlayOrPause,VolumeUp,VolumeDown,Mute,Next} = require('./keys');
 
 
 class Remote{

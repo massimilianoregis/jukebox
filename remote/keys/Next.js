@@ -1,7 +1,7 @@
 var Command = require("../Command");
-class PlayOrPause extends Command{
+class Next extends Command{
     keyId="KEY_NEXTSONG"
     endpoint='/jukebox/next'
 }
 
-module.exports=PlayOrPause
+module.exports=Next
