@@ -30,7 +30,7 @@ app.get("/volume/up",(req,res)=>{
     res.redirect("/jukebox")
 })
 app.get("/volume/down",(req,res)=>{    
-    req.jukebox.volume+=10;   
+    req.jukebox.volume-=10;   
     res.redirect("/jukebox")
 })
 app.get("/volume/:volume",(req,res)=>{    
