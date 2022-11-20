@@ -25,7 +25,7 @@ var app = express();
         next();
     })
     app.use("/jukebox",require("./service/jukebox"))
-    app.use("/",proxy("http://localhost:8100"));
+    //app.use("/",proxy("http://localhost:8100"));
     app.use("/",express.static("./ui/build"));
     app.get("/",(req,res)=>{
         res.redirect('/jukebox/music')
