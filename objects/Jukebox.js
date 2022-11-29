@@ -5,6 +5,7 @@ const archiver = require('archiver');
 const { Music } = require("./Music");
 const { Playlist } = require("./Playlist");
 const { Mocp } = require("./Mocp");
+const fs = require("fs");
 
 class JukeBox{
     _volume=100;
@@ -87,6 +88,9 @@ class JukeBox{
             YD.download(code);
 
             YD.on("finished", function(err, data) {
+                var {file} = data;
+                if(file.match("\'"))
+                    fs.renameSync(file,file.replaceAll("'",""))
                 ok(data);
             });
 
