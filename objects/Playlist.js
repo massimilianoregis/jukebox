@@ -43,7 +43,7 @@ class Playlist {
     }
 
     async play() {   
-        this.load();     
+        await this.load();     
         this.shuffle();
         //await Mocp.volumeShade(0,Playlist.jukebox.volume);
         await Mocp.pause();
@@ -53,12 +53,12 @@ class Playlist {
         Playlist.jukebox.playlist=this;
     }
 
-    shuffle() {
-        var array = this.music;
+    shuffle() {        
+        var array = this.music;        
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
-        }
+        }        
         this.music = array;
     }
     async load() {        
