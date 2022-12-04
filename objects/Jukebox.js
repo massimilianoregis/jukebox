@@ -85,19 +85,19 @@ class JukeBox{
                     "allowWebm": false                      // Enable download from WebM sources (default: false)
                 });
 
-                YD.on("finished", function(err, data) {
+                this.YD.on("finished", function(err, data) {
                     var {file} = data;
                     if(file.match("\'"))
                         fs.renameSync(file,file.replaceAll("'",""))
                     ok(data);
                 });
 
-                YD.on("error", function(error) {
+                this.YD.on("error", function(error) {
                     ko(error)
                     console.log(error);
                 });
 
-                YD.on("progress", function(progress) {
+                this.YD.on("progress", function(progress) {
                     console.log(JSON.stringify(progress));
                 });
             }
