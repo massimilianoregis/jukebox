@@ -74,35 +74,37 @@ class JukeBox{
     async downloadByCode(code){           
         return new Promise((ok,ko)=>{
             
-            var YoutubeMp3Downloader = require("youtube-mp3-downloader");
-            var YD = new YoutubeMp3Downloader({
-                //"ffmpegPath": "/path/to/ffmpeg",        // FFmpeg binary location
-                "outputPath": Music.root,    // Output file location (default: the home directory)
-                "youtubeVideoQuality": "highestaudio",  // Desired video quality (default: highestaudio)
-                "queueParallelism": 2,                  // Download parallelism (default: 1)
-                "progressTimeout": 2000,                // Interval in ms for the progress reports (default: 1000)
-                "allowWebm": false                      // Enable download from WebM sources (default: false)
-            });
+            if(!this.YD){
+                var YoutubeMp3Downloader = require("youtube-mp3-downloader");
+                this.YD = new YoutubeMp3Downloader({
+                    //"ffmpegPath": "/path/to/ffmpeg",        // FFmpeg binary location
+                    "outputPath": Music.root,    // Output file location (default: the home directory)
+                    "youtubeVideoQuality": "highestaudio",  // Desired video quality (default: highestaudio)
+                    "queueParallelism": 2,                  // Download parallelism (default: 1)
+                    "progressTimeout": 2000,                // Interval in ms for the progress reports (default: 1000)
+                    "allowWebm": false                      // Enable download from WebM sources (default: false)
+                });
+
+                YD.on("finished", function(err, data) {
+                    var {file} = data;
+                    if(file.match("\'"))
+                        fs.renameSync(file,file.replaceAll("'",""))
+                    ok(data);
+                });
+
+                YD.on("error", function(error) {
+                    ko(error)
+                    console.log(error);
+                });
+
+                YD.on("progress", function(progress) {
+                    console.log(JSON.stringify(progress));
+                });
+            }
+            var YD=this.YD;
 
             //Download video and save as MP3 file
             YD.download(code);
-
-            YD.on("finished", function(err, data) {
-                var {file} = data;
-                if(file.match("\'"))
-                    fs.renameSync(file,file.replaceAll("'",""))
-                ok(data);
-            });
-
-            YD.on("error", function(error) {
-                ko(error)
-                console.log(error);
-            });
-
-            YD.on("progress", function(progress) {
-                console.log(JSON.stringify(progress));
-            });
-          
         })
     }
     async search(name){
