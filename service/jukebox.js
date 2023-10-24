@@ -1,6 +1,6 @@
 var box = new (require("../objects/Jukebox"))("data/mp3","data/playlists");
 var app = require("express")();
-
+var os = require("os");
 
 app.use((req,res,next)=>{
     req.jukebox=box;    
@@ -35,9 +35,27 @@ app.get("/volume/:volume",(req,res)=>{
     req.jukebox.volume=req.params.volume;   
     res.redirect("/jukebox")
 })
+app.use((req,res,next)=>{
+        if(app.myip) return next();
+        const networkInterfaces = os.networkInterfaces();
+
+        for (const interfaceName in networkInterfaces) {
+            const networkInterface = networkInterfaces[interfaceName];
+            
+            for (const interface of networkInterface) {
+                if (interface.family === 'IPv4' && interface.internal === false) {                
+                    app.myip=interface.address;                
+                }
+            }
+        }
+    next()
+})
 app.get("/",async (req,res)=>{    
     var {title,id,status,artist}=await req.jukebox.info()||{};
+
+    
     res.json({        
+        url:`http://${app.myip}:${req.port}/mobile`,        
         addPlaylist:req.hateous(`playlist/:name`),
         volume:req.jukebox.volume,
         info:{
