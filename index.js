@@ -14,8 +14,8 @@ try{
     new Remote('event2').default()
 }catch(e){console.log(e)}
 
-const { spawn } = require('child_process');
-const child = spawn('ionic', ['serve'], { cwd: '../jukeboxpi' });
+//const { spawn } = require('child_process');
+//const child = spawn('ionic', ['serve'], { cwd: '../jukeboxpi' });
 
 var app = express();
     app.use((req,res,next)=>{
@@ -27,8 +27,8 @@ var app = express();
     })
     app.use((req,res,next)=>{req.port=port; next();})
     app.use("/jukebox",require("./service/jukebox"))
-    app.use("/",proxy("http://localhost:8100"));
-    //app.use("/",express.static("./ui/build"));
+    //app.use("/",proxy("http://localhost:8100"));
+    app.use("/",express.static("./ui/build"));
     app.get("/",(req,res)=>{
         res.redirect('/jukebox/music')
     })    
