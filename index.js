@@ -28,7 +28,7 @@ var app = express();
     app.use((req,res,next)=>{req.port=port; next();})
     app.use("/jukebox",require("./service/jukebox"))
     //app.use("/",proxy("http://localhost:8100"));
-    app.use("/",express.static("./ui/build"));
+    app.use("/",express.static("./ui"));
     app.get("/",(req,res)=>{
         res.redirect('/jukebox/music')
     })    
