@@ -11,7 +11,7 @@ var app = require("express")();
                 download:`http://${req.get("host")}/${item.id}/download`
             }))
         res.json({            
-            download:`http://${req.get("host")}/music/download`,
+            download:`http://${req.get("host")}/jukebox/download`,
             recoverDB:`http://${req.get("host")}/recoverDB`,
             music:list
         })
