@@ -3,6 +3,8 @@ require("./util/hash")
 var path = require("path")
 const services = require("axios").create();
 var express = require("express");
+var staticZip = require('express-static-zip');
+
 var port = 3002
 try{    
     const Remote= require('./remote/Remote');
@@ -28,7 +30,8 @@ var app = express();
     app.use((req,res,next)=>{req.port=port; next();})
     app.use("/jukebox",require("./service/jukebox"))
     //app.use("/",proxy("http://localhost:8100"));
-    app.use("/",express.static("./ui"));
+    //app.use("/",express.static("./ui"));
+    app.use(staticZip('./ui/raspberry.zip'));
     app.get("/",(req,res)=>{
         res.redirect('/jukebox/music')
     })    
