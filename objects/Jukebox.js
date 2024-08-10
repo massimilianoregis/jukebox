@@ -129,7 +129,7 @@ class JukeBox{
     async zip(response){
         const archive = archiver('zip', {zlib: { level: 9 }});
         archive.on('end', () => response.end());
-        archive.directory(Music.root);
+        archive.directory(Music.root,false);
         archive.pipe(response)
         archive.finalize();
     }
